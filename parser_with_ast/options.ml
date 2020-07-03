@@ -1,4 +1,7 @@
-Copyright (c) 2020, Frédéric Bour
+(*
+Jacques-Henri Jourdan, Inria Paris
+François Pottier, Inria Paris
+
 Copyright (c) 2016-2017, Inria
 All rights reserved.
 
@@ -23,3 +26,18 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*)
+
+(* [c99_scoping] is [true] if using C99/C11/C18 scoping rules, [false] if
+   using ANSI scoping rules. *)
+(* This flag influences only the ANSI-compatible parser. It should be
+   set to [true] for C99/C11/C18 parsing, [false] for C89/C90 parsing. *)
+let c99_scoping = ref true
+
+(* [atomic_strict_syntax] is [true] if [_Atomic] followed by an
+   opening parenthesis is always a type specifier. *)
+(* It should be set to [true] for strictly compliant C18 parsing.
+   Setting it to [false] only causes more programs to be accepted; no
+   program can be parsed incorrectly. *)
+(* This flag directly influences only the lexer. *)
+let atomic_strict_syntax = ref true

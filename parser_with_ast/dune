@@ -1,0 +1,11 @@
+(library
+ (name c11parser)
+ (libraries menhirLib utils grenier.baltree)
+ (preprocess (pps ppx_deriving.show)))
+
+(ocamllex
+ (modules lexer))
+
+(menhir 
+ (flags --inspection --unused-tokens --table)
+ (modules parser))

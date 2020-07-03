@@ -1,4 +1,7 @@
-Copyright (c) 2020, Frédéric Bour
+(*
+Jacques-Henri Jourdan, Inria Paris
+François Pottier, Inria Paris
+
 Copyright (c) 2016-2017, Inria
 All rights reserved.
 
@@ -23,3 +26,33 @@ LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
 ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*)
+
+open Context
+
+(* We distinguish between three kinds of declarators: 1- identifiers,
+   2- function declarators, and 3- everything else. In the case of a
+   function declarator, we save a snapshot of the context at the END
+   of the parameter-type-list. *)
+
+(* With a declarator, we associate two pieces of information: 1- the
+   identifier that is being declared; 2- the declarator's kind, as
+   defined above. *)
+
+type declarator
+
+(* This accessor returns the identifier that is being declared. *)
+
+val identifier: declarator -> string
+
+(* Three functions for constructing declarators. *)
+
+val identifier_declarator: string -> declarator
+val function_declarator: declarator -> context -> declarator
+val other_declarator: declarator -> declarator
+
+(* A function for restoring the context that was saved in a function
+   declarator and, on top of that, declaring the function itself as a
+   variable. *)
+
+val reinstall_function_context: declarator -> unit
